@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log S Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Предсказание Log S для химических соединений 🧪</h1>
+
+        <!-- Кнопка для открытия Ketcher -->
+        <button id="open-ketcher-btn">Открыть Ketcher</button>
+
+        <!-- Контейнер для Ketcher -->
+        <div id="ketcher-container" class="ketcher-container">
+            <button id="close-ketcher-btn" class="close-ketcher-btn">×</button>
+            <iframe id="ketcher-frame" src="/static/ketcher/index.html"></iframe>
+        </div>
+
+        <!-- Поиск молекул через PubChem -->
+        <div class="pubchem-search">
+            <p>Найдите молекулу по названию или CID:</p>
+            <input type="text" id="pubchem-input" placeholder="Введите название или CID">
+            <button id="pubchem-search-button">Поиск</button>
+        </div>
+
+        <!-- Ввод SMILES-строк -->
+        <p>Введите список SMILES-строк (каждая строка на новой строке):</p>
+        <textarea id="smiles-input" placeholder="CC(=O)OC1=CC=CC=C1C(=O)O\nCCO"></textarea>
+
+        <!-- Выбор модели -->
+        <p>Выберите модель для предсказания:</p>
+        <select id="model-select">
+            <option value="old">XGBoost (старая модель)</option>
+            <option value="new">Random Forest (новая модель)</option>
+        </select>
+
+        <button id="predict-button">Предсказать Log S</button>
+
+        <!-- Загрузка CSV -->
+        <p>Или загрузите CSV-файл (должен содержать колонку "SMILES"):</p>
+        <input type="file" id="csv-upload" accept=".csv">
+        <p>Выберите модель для предсказания:</p>
+        <select id="csv-model-select">
+            <option value="old">XGBoost (старая модель)</option>
+            <option value="new">Random Forest (новая модель)</option>
+        </select>
+        <button id="upload-csv-button">Загрузить CSV</button>
+
+        <!-- Выгрузка CSV -->
+        <p>Сохранить результаты в CSV:</p>
+        <button id="download-csv-button">Скачать CSV</button>
+
+        <!-- Переключатель темы -->
+        <div class="theme-switcher-container">
+            <label class="toggle-switch">
+                <input type="checkbox" id="switch">
+                <span class="slider">
+                    <span class="icon sun">☀️</span>
+                    <span class="icon moon">🌙</span>
+                </span>
+            </label>
+        </div>
+
+        <!-- Результаты -->
+        <div id="results"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
