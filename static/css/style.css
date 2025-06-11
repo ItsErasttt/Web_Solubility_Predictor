@@ -1,0 +1,443 @@
+
+:root {
+    --primary-color: #4F46E5;
+    --primary-hover: #3730a3;
+    --success-color: #10B981;
+    --danger-color: #EF4444;
+    --warning-color: #F59E0B;
+    --bg-light: #f9f9f9;
+    --text-light: #333;
+    --bg-dark: #1e1e1e;
+    --text-dark: #f5f5f5;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+    padding: 2rem;
+}
+
+body.dark {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: bold;
+}
+
+
+.theme-switcher {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.switch-label {
+    font-size: 0.9rem;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 4px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.left-column,
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.card {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 1.5rem;
+    transition: all var(--transition-speed);
+    border: 1px solid #e0e0e0;
+}
+
+.card h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-color);
+}
+
+body.dark .card {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+    border-color: #333;
+}
+
+textarea,
+input[type="text"],
+input[type="file"],
+select {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    resize: vertical;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #333;
+    transition: all var(--transition-speed);
+}
+
+body.dark textarea,
+body.dark input[type="text"],
+body.dark input[type="file"],
+body.dark select {
+    background-color: #2d2d2d;
+    color: #f5f5f5;
+    border-color: #444;
+}
+
+textarea:focus,
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color var(--transition-speed);
+    margin-top: 0.5rem;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.ketcher-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 600px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    z-index: 1000;
+    display: none;
+    overflow: hidden;
+}
+
+#ketcher-frame {
+    width: 100%;
+    height: calc(100% - 40px);
+    border: none;
+}
+
+.close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    line-height: 1rem;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1001;
+    transition: background-color var(--transition-speed);
+}
+
+.close-btn:hover {
+    background-color: #c82333;
+}
+
+.results-section {
+    margin-top: 2rem;
+}
+
+#results {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.result-item {
+    background-color: var(--bg-light);
+    border: 1px solid #eee;
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    transition: all var(--transition-speed);
+}
+
+body.dark .result-item {
+    background-color: #2d2d2d;
+    border-color: #444;
+}
+
+.result-item img {
+    display: block;
+    margin: 0.5rem auto;
+    max-width: 150px;
+    height: auto;
+    border-radius: var(--border-radius);
+}
+
+.result-item strong {
+    display: block;
+    margin-top: 0.5rem;
+    font-weight: normal;
+    color: var(--text-light);
+}
+
+.prediction-high {
+    color: green;
+    font-weight: bold;
+}
+
+.prediction-medium {
+    color: orange;
+    font-weight: bold;
+}
+
+.prediction-low {
+    color: red;
+    font-weight: bold;
+}
+
+.history-item {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.history-header strong {
+    display: inline-block;
+    min-width: 120px;
+}
+
+.history-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.result-image {
+    max-width: 150px;
+    height: auto;
+    margin-top: 1rem;
+    border-radius: 6px;
+}
+
+/* === Кнопки в истории === */
+/* === Общие стили для всех кнопок === */
+.btn-primary,
+.btn-success,
+.btn-danger {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    width: auto;
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+.btn-primary:hover,
+.btn-success:hover,
+.btn-danger:hover {
+    opacity: 0.9;
+}
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: white;
+    color: #333;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.dark .modal-content {
+    background-color: #2d2d2d;
+    color: #f5f5f5;
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.3s;
+}
+
+.modal-close:hover {
+    color: red;
+}
+
+.modal-list {
+    list-style: disc inside;
+    margin-top: 1rem;
+    padding-left: 1rem;
+}
+
+.modal-list li {
+    margin-bottom: 0.75rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.btn-info {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.btn-info:hover {
+    background-color: #2563eb;
+}
+
+.btn-sm {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+}
+
+
+@media (max-width: 900px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    .ketcher-container {
+        width: 95%;
+        height: 500px;
+    }
+}

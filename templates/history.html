@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>История запросов</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="light">
+
+<div class="container">
+
+  
+    <div class="theme-switcher">
+        <label for="switch" class="switch-label">Светлая / Тёмная тема</label>
+        <label class="switch">
+            <input type="checkbox" id="switch">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <h1>🕒 История запросов</h1>
+
+
+    <div class="actions">
+        <button id="clear-history" class="btn-danger">🗑 Очистить историю</button>
+        <button id="download-all" class="btn-success">💾 Скачать всё как CSV</button>
+
+        <button onclick="window.location.href='/'" class="btn-primary">⬅️ Назад к предсказаниям</button>
+    </div>
+
+    <section class="card history-list">
+        <h2>Предыдущие результаты</h2>
+        <p id="empty-history" class="text-center hidden">История пуста.</p>
+        <div id="history-results" class="history-grid"></div>
+    </section>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='js/history.js') }}"></script>
+
+
+<script>
+    const switchBtn = document.getElementById('switch');
+    const body = document.body;
+
+
+    const isDark = localStorage.getItem('darkTheme') === 'true';
+    if (isDark) {
+        body.classList.add('dark');
+        switchBtn.checked = true;
+    }
+
+    switchBtn.addEventListener('change', () => {
+        if (switchBtn.checked) {
+            body.classList.add('dark');
+            localStorage.setItem('darkTheme', 'true');
+        } else {
+            body.classList.remove('dark');
+            localStorage.setItem('darkTheme', 'false');
+        }
+    });
+</script>
+
+</body>
+</html>

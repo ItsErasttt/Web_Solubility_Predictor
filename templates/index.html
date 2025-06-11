@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Предсказание Log S</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="light">
+
+<div class="container">
+
+
+    <div class="theme-switcher">
+        <label for="switch" class="switch-label">Светлая / Тёмная тема</label>
+        <label class="switch">
+            <input type="checkbox" id="switch">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <h1>🧪 Предсказание Log S для химических соединений</h1>
+
+
+    <div class="grid-container">
+
+        <div class="left-column">
+
+
+            <section class="card ketcher-card">
+                <div class="flex-container">
+                    <h2>🎨 Редактор молекул (Ketcher)</h2>
+                    <button id="how-to-use-btn" class="btn-info btn-sm">Как пользоваться</button>
+                </div>
+                <button id="open-ketcher-btn" class="btn-primary">Открыть Ketcher</button>
+                <div id="ketcher-container" class="ketcher-container">
+                    <button id="close-ketcher-btn" class="close-btn">×</button>
+                    <iframe id="ketcher-frame" src="/static/ketcher/index.html"></iframe>
+                </div>
+            </section>
+
+
+            <section class="card smiles-card">
+                <h2>✍️ Ввод SMILES-строк</h2>
+                <textarea id="smiles-input" placeholder="CC(=O)OC1=CC=CC=C1C(=O)O&#10;CCO"></textarea>
+                <p>Выберите модель:</p>
+                <select id="model-select">
+                    <option value="old">XGBoost (старая модель)</option>
+                    <option value="new">Random Forest (новая модель)</option>
+                </select>
+                <button id="predict-button" class="btn-primary">Предсказать Log S</button>
+            </section>
+
+
+            <section class="card mol-upload-card">
+                <h2>🧬 Загрузка .mol файла</h2>
+                <input type="file" id="mol-upload" accept=".mol,.sdf">
+                <p>Выберите модель:</p>
+                <select id="mol-model-select">
+                    <option value="old">XGBoost (старая модель)</option>
+                    <option value="new">Random Forest (новая модель)</option>
+                </select>
+                <button id="upload-mol-button" class="btn-primary">Загрузить .mol</button>
+            </section>
+
+        </div>
+
+   
+        <div class="right-column">
+
+
+            <section class="card pubchem-card">
+                <h2>🔎 Поиск молекул через PubChem</h2>
+                <input type="text" id="pubchem-input" placeholder="Введите название или CID">
+                <button id="pubchem-search-button" class="btn-primary">Поиск</button>
+            </section>
+
+
+            <section class="card csv-upload-card">
+                <h2>📁 Загрузка данных из CSV</h2>
+                <input type="file" id="csv-upload" accept=".csv">
+                <p>Выберите модель:</p>
+                <select id="csv-model-select">
+                    <option value="old">XGBoost (старая модель)</option>
+                    <option value="new">Random Forest (новая модель)</option>
+                </select>
+                <button id="upload-csv-button" class="btn-primary">Загрузить CSV</button>
+            </section>
+
+
+            <section class="card csv-download-card">
+                <h2>💾 Сохранение результатов</h2>
+                <button id="download-csv-button" class="btn-primary">Скачать CSV</button>
+            </section>
+
+
+            <section class="card history-card">
+                <h2>🕒 История предсказаний</h2>
+                <a href="/history" class="btn-primary">Перейти к истории</a>
+            </section>
+
+        </div>
+
+    </div>
+
+
+    <section class="card results-section">
+        <h2>📊 Результаты предсказания</h2>
+        <div id="results"></div>
+    </section>
+
+</div>
+
+<div id="help-modal" class="modal hidden">
+    <div class="modal-content">
+        <span id="close-modal" class="modal-close">&times;</span>
+        <h2>📘 Как пользоваться Ketcher</h2>
+        <ul class="modal-list">
+            <li>1. Нажмите кнопку <strong>"Открыть Ketcher"</strong>.</li>
+            <li>2. В открывшемся редакторе нарисуйте интересующую молекулу.</li>
+            <li>3. После завершения сохраните нарисованную молекулу в формате mol и закройте окно Ketcher.</li>
+            <li>4. В поле загрузки файлов .mol загрузите скачанный файл.</li>
+            <li>5. Выберите модель и нажмите <strong>"Предсказать Log S"</strong>.</li>
+        </ul>
+    </div>
+</div>
+
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+
+<script>
+    const switchBtn = document.getElementById('switch');
+    const body = document.body;
+
+
+    const isDark = localStorage.getItem('darkTheme') === 'true';
+    if (isDark) {
+        body.classList.add('dark');
+        switchBtn.checked = true;
+    }
+
+
+    switchBtn.addEventListener('change', () => {
+        if (switchBtn.checked) {
+            body.classList.add('dark');
+            localStorage.setItem('darkTheme', 'true');
+        } else {
+            body.classList.remove('dark');
+            localStorage.setItem('darkTheme', 'false');
+        }
+    });
+</script>
+
+
+<script>
+
+    document.getElementById('how-to-use-btn').addEventListener('click', () => {
+        document.getElementById('help-modal').classList.remove('hidden');
+    });
+
+
+    document.getElementById('close-modal').addEventListener('click', () => {
+        document.getElementById('help-modal').classList.add('hidden');
+    });
+
+
+    document.getElementById('help-modal').addEventListener('click', function (e) {
+        if (e.target === this) {
+            this.classList.add('hidden');
+        }
+    });
+</script>
+
+</body>
+</html>
+
